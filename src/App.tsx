@@ -7,13 +7,7 @@ const App = () => {
     <div className="App">
         <Header />
         <NavBar />
-
-     <ul>
-         <li>css</li>
-         <li>html</li>
-         <li>js</li>
-         <li>react</li>
-     </ul>
+        <Content />
     </div>
   );
 }
@@ -21,10 +15,21 @@ const App = () => {
 const NavBar = () => {
     return (
         <div>
-
+            <div>Profile</div>
+            <div>Message</div>
+            <div>News</div>
+            <div>Music</div>
+            <div>Setting</div>
         </div>
     );
 }
 
+const Content = () => {
+    return (
+        <div>
+            <div>My content</div>
+        </div>
+    )
+}
 
 export default App;
