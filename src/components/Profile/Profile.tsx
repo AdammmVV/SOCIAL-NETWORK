@@ -1,9 +1,10 @@
 import React from "react";
+import '../../App.css'
 
 const Content = () => {
     return (
         <div>
-            <div>My content</div>
+            <div className={}>My content</div>
         </div>
     );
 }
