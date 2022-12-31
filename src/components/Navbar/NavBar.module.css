@@ -1,0 +1,19 @@
+.navBar {
+    grid-area: n;
+    background-color: #397130;
+    border-radius: 5px;
+}
+
+.item {
+    color: white;
+    margin: 20px;
+    font-size: 20px;
+}
+
+a {
+    color: white;
+}
+
+.item:last-child {
+    margin-top: 40px;
+}
