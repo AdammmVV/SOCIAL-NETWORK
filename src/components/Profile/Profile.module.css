@@ -1,0 +1,14 @@
+.content {
+    width: 100%;
+    border-radius: 5px;
+    grid-area: c;
+    background-color: rgba(206, 200, 200, 0.93);
+}
+
+.content img {
+    width: 100%;
+}
+
+.item {
+    font-weight: bold;
+}
