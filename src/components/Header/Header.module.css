@@ -1,0 +1,13 @@
+.header {
+    border-radius: 5px;
+    grid-area: h;
+    background-color: #397130;
+}
+
+.header img {
+    padding: 5px;
+    box-shadow: 15px 5px 15px rgba(28,133,2,0.71);
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+}
