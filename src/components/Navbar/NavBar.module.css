@@ -10,8 +10,16 @@
     font-size: 20px;
 }
 
-a {
+.item a {
     color: white;
+    text-decoration: none;
+    border-radius: 30px;
+    padding: 5px 15px;
+}
+
+.item a.active {
+    color: gold;
+    border: 1px solid rgba(217, 204, 191, 0.44);
 }
 
 .item:last-child {
