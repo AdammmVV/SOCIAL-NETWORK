@@ -1,48 +1,55 @@
 import React from "react";
-import {NavLink} from "react-router-dom";
 import s from './Dialogs.module.css'
+import {v1} from "uuid";
+import {DialogItem} from "./DialogItem/DialogItem";
+import {Message} from "./Message/Message";
 
-type DialogItemPropsType = {
+export type PropsDialogsDataType = {
     id: string
     name: string
 }
 
-export const DialogItem = (props: DialogItemPropsType) => {
-    return (
-        <div className={s.dialog}>
-            <NavLink to={`'/dialogs/ ${props.id}`} activeClassName={s.active}>{props.name}</NavLink>
-        </div>
-    )
-}
-
-type MessagePropsType = {
+export type PropsMessageDataType = {
+    id: string
     message: string
 }
 
-export const Message = (props: MessagePropsType) => {
-    return (
-        <div className={s.message}>
-            {props.message}
-        </div>
-    )
-}
 
+let propsDialogsData:PropsDialogsDataType[] = [
+    {id: v1(), name: 'Adammm'},
+    {id: v1(), name: 'Dron'},
+    {id: v1(), name: 'Alena'},
+    {id: v1(), name: 'Valentina'},
+]
+
+let propsMessageData:PropsMessageDataType[] = [
+    {id: v1(), message: 'I`m Valery'},
+    {id: v1(), message: 'How are you?'},
+    {id: v1(), message: 'I`m Alena'},
+]
+
+let mapDialogItem = propsDialogsData.map(d => {
+    return (
+        <DialogItem key={d.id} name={d.name} id={d.id}/>
+    )
+})
+
+let mapMessage = propsMessageData.map(m => {
+    return (
+        <Message key={m.id} message={m.message} />
+    )
+})
 
 const Dialogs = () => {
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>
                 <div className={s.dialog}>
-                    <DialogItem name='Adammm' id='1'/>
-                    <DialogItem name='Dron' id='2'/>
-                    <DialogItem name='Alena' id='3'/>
-                    <DialogItem name='Valentina' id='4'/>
+                    {mapDialogItem}
                 </div>
             </div>
             <div className={s.messages}>
-                <Message message='I`m Valery' />
-                <Message message='How are you?' />
-                <Message message='I`m Alena' />
+                {mapMessage}
             </div>
         </div>
     )
