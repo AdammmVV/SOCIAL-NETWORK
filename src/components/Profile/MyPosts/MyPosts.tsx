@@ -3,11 +3,25 @@ import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 
 const MyPosts = () => {
+
+    type PropsDataType = {
+        message: string
+        likeCount: string
+    }
+
+    let propsData: PropsDataType[] = [
+        {message: 'How are you?', likeCount: '12'},
+        {message: 'Hi, I am Adam.', likeCount: '11'},
+        {message: 'Yo!', likeCount: '17'},
+    ]
+    let mapPost = propsData.map((p) => {
+        return (
+            <Post message={p.message} likeCount={p.likeCount}/>
+        )
+    })
     return (
         <div className={s.myPosts}>
-            <Post message='How are you?' likeCount='12'/>
-            <Post message='Hi, I am Adam.' likeCount='11'/>
-            <Post message='Yo!' likeCount='17'/>
+            {mapPost}
         </div>
     );
 }
