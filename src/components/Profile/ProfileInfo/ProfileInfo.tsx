@@ -1,7 +1,22 @@
 import s from "./ProfileInfo.module.css";
 import React from "react";
 
-export const ProfileInfo = (props: any) => {
+type ProfileInfoPropsType = {
+    addPost: (message:string) => void
+}
+
+export const ProfileInfo = (props: ProfileInfoPropsType) => {
+
+    let textareaRef = React.createRef<HTMLTextAreaElement>()
+
+    const onClickButtonHandler = () => {
+        if (textareaRef.current) {
+            props.addPost(textareaRef.current.value)
+            textareaRef.current.value = '';
+        }
+
+    }
+
     return (
         <div className={s.content}>
             <div>
@@ -15,10 +30,10 @@ export const ProfileInfo = (props: any) => {
             </div>
             <div>
                 <div>
-                    <textarea></textarea>
+                    <textarea ref={textareaRef}> </textarea>
                 </div>
                 <div>
-                    <button>Add post</button>
+                    <button onClick={onClickButtonHandler}>Add post</button>
                 </div>
             </div>
         </div>
