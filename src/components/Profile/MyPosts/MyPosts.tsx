@@ -11,7 +11,6 @@ const MyPosts = (props: MyPostsPropsType) => {
 
     let post = props.profilePage.posts.map(p =>
         <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
-
     return (
         <div className={s.myPosts}>
             {post}
