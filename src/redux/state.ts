@@ -28,11 +28,13 @@ export type NavBarType = {
 
 export type profilePageType = {
     posts: PostsType[]
+    profileMessage: string
 }
 
 export type dialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
+    dialogMessage: string
 }
 
 export type StateType = {
@@ -48,6 +50,7 @@ export const state: StateType = {
             {id: v1(), message: 'Hi, I am Adam.', likeCount: '11'},
             {id: v1(), message: 'Yo!', likeCount: '17'},
         ],
+        profileMessage: '',
     },
     dialogsPage: {
         dialogs: [
@@ -77,6 +80,7 @@ export const state: StateType = {
             {id: v1(), message: 'How are you?'},
             {id: v1(), message: 'I`m Alena'},
         ],
+        dialogMessage: ''
     },
     navBar: {
         nav: [
@@ -109,14 +113,20 @@ export const state: StateType = {
     }
 }
 
-export const addPost = (postMessage: string) => {
-    let post = {id: v1(), message: postMessage, likeCount: '0'}
+export const addPost = () => {
+    let post = {id: v1(), message: state.profilePage.profileMessage, likeCount: '0'}
     state.profilePage.posts.push(post)
+    state.profilePage.profileMessage = ''
     rerenderEnteredTree(state)
 }
 
 export  const addMessages = (messageTitle: string) => {
     let message = {id: v1(), message: messageTitle}
     state.dialogsPage.messages.push(message)
+    rerenderEnteredTree(state)
+}
+
+export const updateProfileMessage = (inputValue: string) => {
+    state.profilePage.profileMessage = inputValue
     rerenderEnteredTree(state)
 }
