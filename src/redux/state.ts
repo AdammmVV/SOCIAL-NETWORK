@@ -1,5 +1,9 @@
 import {v1} from "uuid";
-import {rerenderEnteredTree} from "./rerender";
+
+let rerenderEnteredTree = (state: StateType) => {
+    console.log(`changed ${state}`)
+}
+
 
 export type NavType = {
     id: string
@@ -131,4 +135,7 @@ export const updateProfileMessage = (textareaValue: string) => {
 export const updateDialogMessage = (textareaValue: string) => {
     state.dialogsPage.dialogMessage = textareaValue
     rerenderEnteredTree(state)
+}
+export const subscriber = (observe: (state:StateType)=>void) => {
+    rerenderEnteredTree = observe
 }
