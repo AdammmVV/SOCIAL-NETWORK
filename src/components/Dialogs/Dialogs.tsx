@@ -7,6 +7,7 @@ import {dialogsPageType} from "../../redux/state";
 type DialogsPropsType = {
     state: dialogsPageType
     addMessages: (message:string) => void
+    dialogMessage: string
 }
 
 const Dialogs = (props: DialogsPropsType) => {
@@ -35,7 +36,7 @@ const Dialogs = (props: DialogsPropsType) => {
             <div className={s.messages}>
                 {message}
                 <div>
-                    <textarea ref={newMessageValue}> </textarea>
+                    <textarea ref={newMessageValue} value={props.dialogMessage}> </textarea>
                 </div>
                 <div>
                     <button onClick={addMessage}>Add message</button>
