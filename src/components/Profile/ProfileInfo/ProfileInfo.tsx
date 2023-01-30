@@ -1,20 +1,20 @@
 import s from "./ProfileInfo.module.css";
-import React from "react";
+import React, {ChangeEvent} from "react";
 
 type ProfileInfoPropsType = {
-    addPost: (message:string) => void
+    addPost: () => void
+    profileMessage: string
+    updateProfileMessage: (val:string) => void
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
-
-    let textareaRef = React.createRef<HTMLTextAreaElement>()
-
+    
     const onClickButtonHandler = () => {
-        if (textareaRef.current) {
-            props.addPost(textareaRef.current.value)
-            textareaRef.current.value = '';
-        }
+     props.addPost()
+    }
 
+    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateProfileMessage(e.currentTarget.value)
     }
 
     return (
@@ -30,7 +30,7 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             </div>
             <div>
                 <div>
-                    <textarea ref={textareaRef}> </textarea>
+                    <textarea onChange={onChangeHandler} value={props.profileMessage}/>
                 </div>
                 <div>
                     <button onClick={onClickButtonHandler}>Add post</button>
