@@ -8,7 +8,7 @@ type ProfileInfoPropsType = {
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
-    
+
     const onClickButtonHandler = () => {
      props.addPost()
     }
