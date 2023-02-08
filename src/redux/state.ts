@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import logoMan from '../img/logo-man.jpg'
+import logoWoman from '../img/logoWoman.jpg'
 
 let rerenderEnteredTree = (state: StateType) => {
     console.log(`changed ${state}`)
@@ -9,6 +11,7 @@ export type NavType = {
     id: string
     name: string
     avatar: string
+    online: boolean
 }
 export type MessagesType = {
     id: string
@@ -87,27 +90,32 @@ export const state: StateType = {
             {
                 id: v1(),
                 name: 'Andrey',
-                avatar: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fm.yandex.by%2Fimages%2Ftouch%2Fsearch%3Ftext%3D%25D0%25B0%25D0%25B2%25D0%25B0%25D1%2582%25D0%25B0%25D1%2580%2520%25D0%25B7%25D0%25B0%25D0%25B3%25D0%25BB%25D1%2583%25D1%2588%25D0%25BA%25D0%25B0&psig=AOvVaw2nifAkvNn_JEhHElVqGSYS&ust=1674911489611000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCODp8dTp5_wCFQAAAAAdAAAAABAo',
+                avatar: `${logoMan}`,
+                online: true,
             },
             {
                 id: v1(),
                 name: 'Vladimir',
-                avatar: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fseeding.com.ua%2Fotzyvy%2Fvolodimir-merkulov-pp-m-agro-zaporizka-obl%2Fattachment%2Favatarka-dlja-otzyvov%2F&psig=AOvVaw2nifAkvNn_JEhHElVqGSYS&ust=1674911489611000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCODp8dTp5_wCFQAAAAAdAAAAABAy',
+                avatar: `${logoMan}`,
+                online: true,
             },
             {
                 id: v1(),
                 name: 'Alena',
-                avatar: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Ficon-icons.com%2Fpt%2Ficone%2Fmulher%2F25435&psig=AOvVaw2nifAkvNn_JEhHElVqGSYS&ust=1674911489611000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCODp8dTp5_wCFQAAAAAdAAAAABBG',
+                avatar: `${logoWoman}`,
+                online: false,
             },
             {
                 id: v1(),
                 name: 'Roma',
-                avatar: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fbipbap.ru%2Fpictures%2Fprikolnye-avatarki-dlya-youtube-150-kartinok.html&psig=AOvVaw0ZloIHn-gpy7_5PIhAOYKL&ust=1674911890163000&source=images&cd=vfe&ved=0CBAQjRxqFwoTCOi77pPr5_wCFQAAAAAdAAAAABAE',
+                avatar: `${logoMan}`,
+                online: true,
             },
             {
                 id: v1(),
                 name: 'Valentina',
-                avatar: 'https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.flaticon.com%2Ffr%2Ficone-gratuite%2Ffemme_2922650&psig=AOvVaw2nifAkvNn_JEhHElVqGSYS&ust=1674911489611000&source=images&cd=vfe&ved=0CBAQjRxqGAoTCODp8dTp5_wCFQAAAAAdAAAAABCWAQ',
+                avatar: `${logoWoman}`,
+                online: false,
             },
         ],
     }
