@@ -1,9 +1,18 @@
 import React from "react";
 import s from './Header.module.css'
+import logo from '../../img/logo-red.png'
+
 const Header = () => {
     return (
         <div className={s.header}>
-            <img src="https://static.vecteezy.com/system/resources/thumbnails/005/130/856/small_2x/letter-v-logo-with-minimal-design-premium-brand-identity-with-business-card-template-vector.jpg" alt="logo"/>
+            <div>
+                <img src={logo}/>
+            </div>
+            <div className={s.formWrapper}>
+                <input type="email" placeholder={'Email'}/>
+                <input type="password" placeholder={"Password"}/>
+                <button>Log in</button>
+            </div>
         </div>
     )
 }
