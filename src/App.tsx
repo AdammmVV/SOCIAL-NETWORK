@@ -22,7 +22,7 @@ export const App = (props: AppPropsType) => {
     return (
         <div className="app-wrapper">
             <Header/>
-            <NavBar/>
+            <NavBar friend={props.state.navBar.nav}/>
             <div className='app-wrapperContent'>
                 <Route path={'/dialogs'} render={() => <Dialogs
                     dialogMessage={props.state.dialogsPage.dialogMessage}
@@ -42,4 +42,6 @@ export const App = (props: AppPropsType) => {
         </div>
     );
 }
+
+
 
