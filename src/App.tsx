@@ -8,14 +8,11 @@ import {Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Setting} from "./components/Setting/Setting";
-import {StateType} from "./redux/store";
+import {ActionType, StateType} from "./redux/store";
 
 type AppPropsType = {
     state: StateType
-    addMessages: () => void
-    addPost: () => void
-    updateProfileMessage: (val: string) => void
-    updateDialogMessage: (val: string) => void
+    dispatch: (action: ActionType) => void
 }
 
 export const App = (props: AppPropsType) => {
@@ -27,14 +24,12 @@ export const App = (props: AppPropsType) => {
                 <Route path={'/dialogs'} render={() => <Dialogs
                     dialogMessage={props.state.dialogsPage.dialogMessage}
                     state={props.state.dialogsPage}
-                    addMessages={props.addMessages}
-                    updateDialogMessage={props.updateDialogMessage}/>}/>
+                    dispatch={props.dispatch}/>}/>
                 <Route path={'/profile'}
                        render={() => <Profile
                            profileMessage={props.state.profilePage.profileMessage}
                            profilePage={props.state.profilePage}
-                           updateProfileMessage={props.updateProfileMessage}
-                           addPost={props.addPost}/>}/>
+                           dispatch={props.dispatch}/>}/>
                 <Route path={'/news'} component={News}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Setting}/>
