@@ -1,10 +1,10 @@
 import s from "./ProfileInfo.module.css";
 import React, {ChangeEvent} from "react";
+import {ActionType} from "../../../redux/store";
 
 type ProfileInfoPropsType = {
-    addPost: () => void
     profileMessage: string
-    updateProfileMessage: (val:string) => void
+    dispatch: (action: ActionType) => void
 }
 
 const logo = 'https://обложка-вк.рф/src/img/lower/it/it-khakery/it-khakery-1.png'
@@ -12,11 +12,11 @@ const logo = 'https://обложка-вк.рф/src/img/lower/it/it-khakery/it-kh
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
 
     const onClickButtonHandler = () => {
-     props.addPost()
+        props.dispatch({type: "ADD-POST"})
     }
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateProfileMessage(e.currentTarget.value)
+        props.dispatch({type: "UPDATE-PROFILE-MESSAGE", newMessage: e.currentTarget.value})
     }
 
     return (
@@ -25,7 +25,8 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                 <img src={logo} alt=""/>
                 <div className={s.avatarDescription}>
                     <span className={s.ava}>
-                        <img src="https://avatars.githubusercontent.com/u/114234336?s=400&u=733596071371f0b251db3bfeeaef4d0d953bca77&v=4" />
+                        <img
+                            src="https://avatars.githubusercontent.com/u/114234336?s=400&u=733596071371f0b251db3bfeeaef4d0d953bca77&v=4"/>
                         </span>
                     <span className={s.description}>Валерий Адамчук</span>
                 </div>
