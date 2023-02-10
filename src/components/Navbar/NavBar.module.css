@@ -1,8 +1,10 @@
 .navBar {
+    /*position: fixed;*/
     grid-area: n;
     display: flex;
     flex-direction: column;
     gap: 10px;
+    bottom: 10px;
 }
 
 .navLincContainer {
