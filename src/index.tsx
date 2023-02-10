@@ -3,28 +3,20 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {App} from './App';
 import {BrowserRouter} from "react-router-dom";
-import {
-    addMessages,
-    addPost,
-    state,
-    StateType,
-    subscriber,
-    updateDialogMessage,
-    updateProfileMessage
-} from "./redux/state";
+import {StateType, store} from "./redux/store";
 
 export const rerenderEnteredTree = (state: StateType) => {
     ReactDOM.render(
         <BrowserRouter>
             <App state={state}
-                 addPost={addPost}
-                 addMessages={addMessages}
-                 updateProfileMessage={updateProfileMessage}
-                 updateDialogMessage={updateDialogMessage}/>
+                 addPost={store.addPost.bind(store)}
+                 addMessages={store.addMessages.bind(store)}
+                 updateProfileMessage={store.updateProfileMessage.bind(store)}
+                 updateDialogMessage={store.updateDialogMessage.bind(store)}/>
         </BrowserRouter>
         , document.getElementById('root')
     );
 }
-rerenderEnteredTree(state)
+rerenderEnteredTree(store.getState())
 
-subscriber(rerenderEnteredTree)
+store.subscriber(rerenderEnteredTree)
