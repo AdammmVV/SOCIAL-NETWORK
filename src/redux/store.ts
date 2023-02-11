@@ -1,11 +1,16 @@
 import {v1} from "uuid";
 import logoMan from '../img/logo-man.jpg'
 import logoWoman from '../img/logoWoman.jpg'
+import {addPostActionCreator, profileReducer, updateProfileMessageActionCreator} from "./profile-reducer";
+import {addMessageActionCreator, dialogReducer, updateDialogMessageActionCreator} from "./dialog-reducer";
+import {navBarReducer} from "./navBar-reducer";
 
-export type ActionType = {
-    type: 'ADD-POST' | 'ADD-MESSAGE' | 'UPDATE-PROFILE-MESSAGE' | 'UPDATE-DIALOG-MESSAGE'
-    newMessage?: string
-}
+export type ActionType =
+    ReturnType<typeof addMessageActionCreator>
+    | ReturnType<typeof updateDialogMessageActionCreator>
+    | ReturnType<typeof addPostActionCreator>
+    | ReturnType<typeof updateProfileMessageActionCreator>
+
 export type NavType = {
     id: string
     name: string
@@ -29,18 +34,18 @@ export type PostsType = {
 export type NavBarType = {
     nav: NavType[]
 }
-export type profilePageType = {
+export type ProfilePageType = {
     posts: PostsType[]
     profileMessage: string
 }
-export type dialogsPageType = {
+export type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
     dialogMessage: string
 }
 export type StateType = {
-    profilePage: profilePageType
-    dialogsPage: dialogsPageType
+    profilePage: ProfilePageType
+    dialogsPage: DialogsPageType
     navBar: NavBarType
 }
 export type StoreType = {
@@ -113,6 +118,12 @@ export const store: StoreType = {
                 },
                 {
                     id: v1(),
+                    name: 'Natasha',
+                    avatar: `${logoWoman}`,
+                    online: false,
+                },
+                {
+                    id: v1(),
                     name: 'Roma',
                     avatar: `${logoMan}`,
                     online: true,
@@ -136,22 +147,9 @@ export const store: StoreType = {
         this._callSubscriber = observe
     },
     dispatch(action) {
-        if (action.type === "ADD-POST") {
-            let post = {id: v1(), message: this._state.profilePage.profileMessage, likeCount: '0'}
-            this._state.profilePage.posts.push(post)
-            this._state.profilePage.profileMessage = ''
-            this._callSubscriber(store._state)
-        } else if (action.type === "ADD-MESSAGE") {
-            let message = {id: v1(), message: this._state.dialogsPage.dialogMessage}
-            this._state.dialogsPage.messages.push(message)
-            this._state.dialogsPage.dialogMessage = ''
-            this._callSubscriber(store._state)
-        } else if (action.type === "UPDATE-PROFILE-MESSAGE") {
-            if (action.newMessage) this._state.profilePage.profileMessage = action.newMessage
-            this._callSubscriber(store._state)
-        } else if (action.type === "UPDATE-DIALOG-MESSAGE") {
-            if (action.newMessage) this._state.dialogsPage.dialogMessage = action.newMessage
-            this._callSubscriber(store._state)
-        }
+        profileReducer(action, this._state.profilePage)
+        dialogReducer(action, this._state.dialogsPage)
+        navBarReducer(action, this._state.navBar)
+        this._callSubscriber(this._state)
     },
 }
