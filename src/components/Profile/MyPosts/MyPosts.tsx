@@ -1,22 +1,44 @@
-import React from "react";
+import React, {ChangeEvent} from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {ProfilePageType} from "../../../redux/store";
 
 type MyPostsPropsType = {
-    profilePage: ProfilePageType
+    state: ProfilePageType
+    addPost: () => void
+    updateProfileMessage: (newMessage: string) => void
 }
 
-const MyPosts = (props: MyPostsPropsType) => {
+export const MyPosts = (props: MyPostsPropsType) => {
 
-    let post = props.profilePage.posts.map(p =>
+
+    const onAddPost = () => {
+        props.addPost()
+    }
+
+    const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
+        props.updateProfileMessage(e.currentTarget.value)
+    }
+
+
+    let post = props.state.posts.map(p =>
         <Post key={p.id} message={p.message} likeCount={p.likeCount}/>)
     return (
         <div className={s.myPosts}>
-            {post}
+            <div className={s.addPosts}>
+                <div>
+                    My posts
+                </div>
+                <div className={s.addPostTextarea}>
+                    <textarea placeholder={'New post'} onChange={onChangeMessageHandler} value={props.state.profileMessage}/>
+                </div>
+                <div className={s.addPostsButton}>
+                    <button onClick={onAddPost}>Add post</button>
+                </div>
+            </div>
+            <div className={s.posts}>
+                {post}
+            </div>
         </div>
     );
 }
-
-
-export default MyPosts;
