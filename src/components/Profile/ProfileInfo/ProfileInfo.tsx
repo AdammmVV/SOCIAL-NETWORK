@@ -1,22 +1,8 @@
 import s from "./ProfileInfo.module.css";
-import React, {ChangeEvent} from "react";
-import {ActionType} from "../../../redux/store";
-import {addPostActionCreator, updateProfileMessageActionCreator} from "../../../redux/profile-reducer";
+import React from "react";
 
-type ProfileInfoPropsType = {
-    profileMessage: string
-    dispatch: (action: ActionType) => void
-}
 
-export const ProfileInfo = (props: ProfileInfoPropsType) => {
-
-    const onClickButtonHandler = () => {
-        props.dispatch(addPostActionCreator())
-    }
-
-    const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.dispatch(updateProfileMessageActionCreator(e.currentTarget.value))
-    }
+export const ProfileInfo = () => {
 
     return (
         <div className={s.content}>
@@ -29,18 +15,6 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                             alt='avatar'/>
                         </span>
                     <span className={s.description}>Валерий Адамчук</span>
-                </div>
-            </div>
-
-            <div className={s.myPosts}>
-                My posts
-            </div>
-            <div className={s.addPosts}>
-                <div className={s.addPostTextarea}>
-                    <textarea placeholder={'New post'} onChange={onChangeHandler} value={props.profileMessage}/>
-                </div>
-                <div className={s.addPostsButton}>
-                    <button onClick={onClickButtonHandler}>Add post</button>
                 </div>
             </div>
         </div>
