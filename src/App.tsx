@@ -1,31 +1,24 @@
 import React from 'react';
 import './App.css';
 import Header from "./components/Header/Header";
-import {NavBar} from "./components/Navbar/NavBar";
 import {Profile} from './components/Profile/Profile';
 import {Route} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Setting} from "./components/Setting/Setting";
-import {StoreType} from "./redux/store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {NavBarContainer} from "./components/Navbar/NavBarContainer";
 
-type AppPropsType = {
-    store: StoreType
-}
 
-export const App = (props: AppPropsType) => {
-
-    let state = props.store.getState()
+export const App = () => {
 
     return (
         <div className="app-wrapper">
             <Header/>
-            <NavBar friend={state.navBar.nav}/>
+            <NavBarContainer/>
             <div className='app-wrapperContent'>
-                <Route path={'/dialogs'} render={() => <DialogsContainer store={props.store}/>}/>
-                <Route path={'/profile'}
-                       render={() => <Profile store={props.store}/>}/>
+                <Route path={'/dialogs'} render={() => <DialogsContainer/>}/>
+                <Route path={'/profile'} render={() => <Profile/>}/>
                 <Route path={'/news'} component={News}/>
                 <Route path={'/music'} component={Music}/>
                 <Route path={'/settings'} component={Setting}/>
@@ -33,6 +26,3 @@ export const App = (props: AppPropsType) => {
         </div>
     );
 }
-
-
-
