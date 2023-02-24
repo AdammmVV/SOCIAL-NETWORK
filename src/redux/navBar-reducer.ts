@@ -1,9 +1,19 @@
-import {ActionType, NavBarType} from "./store";
+import {ActionType} from "./store";
 import {v1} from "uuid";
 import logoMan from "../img/logo-man.jpg";
 import logoWoman from "../img/logoWoman.jpg";
 
-let initialState: NavBarType = {
+
+export type InitialStateNavType = typeof initialState
+
+export type NavType = {
+    id: string
+    name: string
+    avatar: string
+    online: boolean
+}
+
+let initialState = {
     nav: [
         {
             id: v1(),
@@ -41,10 +51,10 @@ let initialState: NavBarType = {
             avatar: `${logoWoman}`,
             online: false,
         },
-    ],
+    ] as NavType[],
 }
 
 
-export const navBarReducer = (state:NavBarType = initialState, action: ActionType) => {
+export const navBarReducer = (state: InitialStateNavType = initialState, action: ActionType) => {
     return state
 }
