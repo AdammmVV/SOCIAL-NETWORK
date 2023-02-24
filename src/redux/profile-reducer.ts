@@ -1,25 +1,33 @@
 import {v1} from "uuid";
-import {ActionType, ProfilePageType} from "./store";
+import {ActionType} from "./store";
 
-let initialState: ProfilePageType = {
+export type PostsType = {
+    id: string
+    message: string
+    likeCount: string
+}
+
+let initialState = {
     posts: [
         {id: v1(), message: 'How are you?', likeCount: '12'},
         {id: v1(), message: 'Hi, I am Adam.', likeCount: '11'},
         {id: v1(), message: 'Yo!', likeCount: '17'},
-    ],
+    ] as PostsType[],
     profileMessage: '',
 }
 
+export type InitialStateProfilePageStateType = typeof initialState
 
-export const profileReducer = (state: ProfilePageType = initialState, action: ActionType) => {
-    if (action.type === "ADD-POST") {
+export const profileReducer = (state: InitialStateProfilePageStateType = initialState, action: ActionType) => {
+    switch (action.type) {
+        case "ADD-POST":
         let post = {id: v1(), message: state.profileMessage, likeCount: '0'}
-        state.posts.push(post)
-        state.profileMessage = ''
-    } else if (action.type === "UPDATE-PROFILE-MESSAGE") {
-        if (action.newMessage) state.profileMessage = action.newMessage
+            return {...state, posts: [post, ...state.posts], profileMessage: ''}
+        case "UPDATE-PROFILE-MESSAGE":
+            return {...state, profileMessage: action.newMessage}
+        default:
+            return state
     }
-    return state
 }
 
 export const addPostActionCreator = () => ({type: "ADD-POST"} as const)
