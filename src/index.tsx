@@ -3,17 +3,16 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import {App} from './App';
 import {BrowserRouter} from "react-router-dom";
-import {StateType} from "./redux/store";
-import {store} from "./redux/redux-store";
-import {StoreContext} from "./StoreContext";
+import {AppStateType, store} from "./redux/redux-store";
+import { Provider } from 'react-redux';
 
-export const rerenderEnteredTree = (state: StateType) => {
+export const rerenderEnteredTree = (state: AppStateType) => {
     ReactDOM.render(
-        <StoreContext.Provider value={store}>
+        <Provider store={store}>
             <BrowserRouter>
                 <App/>
             </BrowserRouter>
-        </StoreContext.Provider>
+        </Provider>
         , document.getElementById('root')
     );
 }
