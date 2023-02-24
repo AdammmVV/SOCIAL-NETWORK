@@ -1,15 +1,22 @@
 import React from "react";
 import {NavBar} from "./NavBar";
-import {StoreContext} from "../../StoreContext";
+import {connect} from "react-redux";
+import {AppStateType} from "../../redux/redux-store";
+import {Dispatch} from "redux";
+import {InitialStateNavType} from "../../redux/navBar-reducer";
 
-export const NavBarContainer = () => {
-
-    return <StoreContext.Consumer>
-        {
-            (store) => {
-                let state = store.getState()
-                return <NavBar friend={state.navBar.nav}/>
-            }
-        }
-    </StoreContext.Consumer>
+type mapStateToPropsType = {
+    friend: InitialStateNavType
 }
+
+const mapStateToProps = (state: AppStateType): mapStateToPropsType => {
+    return {
+        friend: state.navBar
+    }
+}
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+    return {}
+}
+
+export const NavBarContainer = connect(mapStateToProps, mapDispatchToProps)(NavBar)
