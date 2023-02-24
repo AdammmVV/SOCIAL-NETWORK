@@ -11,44 +11,44 @@ export type ActionType =
     | ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateProfileMessageActionCreator>
 
-export type NavType = {
+type NavType = {
     id: string
     name: string
     avatar: string
     online: boolean
 }
-export type MessagesType = {
+type MessagesType = {
     id: string
     message: string
 }
-export type DialogsType = {
+type DialogsType = {
     id: string
     name: string
     src: string
 }
-export type PostsType = {
+type PostsType = {
     id: string
     message: string
     likeCount: string
 }
-export type NavBarType = {
+type NavBarType = {
     nav: NavType[]
 }
-export type ProfilePageType = {
+type ProfilePageType = {
     posts: PostsType[]
     profileMessage: string
 }
-export type DialogsPageType = {
+type DialogsPageType = {
     dialogs: DialogsType[]
     messages: MessagesType[]
     dialogMessage: string
 }
-export type StateType = {
+type StateType = {
     profilePage: ProfilePageType
     dialogsPage: DialogsPageType
     navBar: NavBarType
 }
-export type StoreType = {
+type StoreType = {
     _state: StateType
     _callSubscriber: (state: StateType) => void
     getState: () => StateType
