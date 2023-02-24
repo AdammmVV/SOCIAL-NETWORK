@@ -1,15 +1,15 @@
 import React from "react";
 import {NavLink} from "react-router-dom";
+import {InitialStateNavType} from "../../redux/navBar-reducer";
 import s from './NavBar.module.css'
-import {NavType} from "../../redux/store";
 
 type NavBarPropsType = {
-    friend: NavType[]
+    friend: InitialStateNavType
 }
 
 export const NavBar = (props: NavBarPropsType) => {
 
-    const mapFriend = props.friend.map(f => {
+    const mapFriend = props.friend.nav.map(f => {
         return (
             <div key={f.id} className={s.friendWrapper}>
                 <div className={s.imgWrapper}>
