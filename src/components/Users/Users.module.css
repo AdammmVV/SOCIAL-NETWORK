@@ -1,0 +1,77 @@
+.usersWrapper {
+    width: 540px;
+    padding: 0 15px 0 15px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 5px -1px rgba(34, 60, 80, 0.81);
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.userWrapper {
+    padding: 10px 0 10px 0;
+    display: flex;
+    gap: 15px;
+    border-bottom: 1px solid rgba(27, 116, 228, 0.19);
+}
+
+.avatar img {
+    width: 80px;
+    border-radius: 50%;
+    background-color: #afafaf;
+}
+
+.avatarWrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.button button{
+    width: 80px;
+    height: 25px;
+    border-radius: 10px;
+    border: none;
+    background-color: #1b74e4;
+    color: white;
+}
+
+.button button:hover {
+    background-color: #1459b7
+}
+
+.button button:active {
+    background-color: #1b74e4;
+}
+
+.descriptionWrapper {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+
+}
+
+.nameDescription {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-top: 10px;
+    vertical-align: bottom;
+    text-align: left;
+}
+
+.name {
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.address {
+    display: flex;
+    gap: 10px;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: right;
+}
