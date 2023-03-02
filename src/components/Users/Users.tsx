@@ -1,130 +1,57 @@
 import React from "react";
 import {InitialStateUsersType, UsersType} from "../../redux/users-reducer";
-import {v1} from "uuid";
 import logoMan from "../../img/logo-man.jpg";
-import logoWoman from "../../img/logoWoman.jpg";
 import s from "./Users.module.css"
+import axios from "axios";
 
 type UsersPropsType = {
     usersPage: InitialStateUsersType,
-    follow: (userId: string) => void,
-    unfollow: (userId: string) => void,
+    follow: (userId: number) => void,
+    unfollow: (userId: number) => void,
     setUsers: (newUsers: UsersType[]) => void,
 
 }
 
-export const Users = (props: UsersPropsType) => {
-    const users: UsersType[] = [
-        {
-            id: v1(),
-            name: 'Andrey',
-            description: 'I love sports)) Cybersport',
-            avatar: `${logoMan}`,
-            online: true,
-            follow: true,
-            address: {
-                cityName: 'Brest',
-                country: 'Belarus',
-            }
-        },
-        {
-            id: v1(),
-            name: 'Vladimir',
-            description: 'I\'m in Germany right now',
-            avatar: `${logoMan}`,
-            online: true,
-            follow: true,
-            address: {
-                cityName: 'Biała-Podlaska',
-                country: 'Poland',
-            }
-        },
-        {
-            id: v1(),
-            name: 'Alena',
-            description: 'I am now at home',
-            avatar: `${logoWoman}`,
-            online: false,
-            follow: true,
-            address: {
-                cityName: 'Minsk',
-                country: 'Belarus',
-            }
-        },
-        {
-            id: v1(),
-            name: 'Natasha',
-            description: 'I have the best counter ',
-            avatar: `${logoWoman}`,
-            online: false,
-            follow: true,
-            address: {
-                cityName: 'Minsk',
-                country: 'Belarus',
-            }
-        },
-        {
-            id: v1(),
-            name: 'Roma',
-            description: 'i love my dog',
-            avatar: `${logoMan}`,
-            online: true,
-            follow: true,
-            address: {
-                cityName: 'Minsk',
-                country: 'Belarus',
-            }
-        },
-        {
-            id: v1(),
-            name: 'Valentina',
-            description: 'dream of vacation',
-            avatar: `${logoWoman}`,
-            online: false,
-            follow: true,
-            address: {
-                cityName: 'Brest',
-                country: 'Belarus',
-            }
+export class Users extends React.Component<UsersPropsType> {
 
-        },
-    ]
-
-    if (props.usersPage.users.length === 0) {
-        props.setUsers(users)
+    constructor(props: UsersPropsType) {
+        super(props);
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+            this.props.setUsers(response.data.items)
+        })
     }
 
-    const mapUsers = props.usersPage.users && props.usersPage.users.map(u => {
-        return (
-            <div key={u.id} className={s.userWrapper}>
-                <div className={s.avatarWrapper}>
-                    <div className={s.avatar}>
-                        <img src={u.avatar} alt={u.name}/>
-                    </div>
-                    <div className={s.button}>
-                        {u.follow
-                            ? <button onClick={() => props.unfollow(u.id)}>Unfollow</button>
-                            : <button onClick={() => props.follow(u.id)}>Follow</button>}
-                    </div>
-                </div>
-                <div className={s.descriptionWrapper}>
-                    <div className={s.nameDescription}>
-                        <div className={s.name}>{u.name}</div>
-                        <div>{u.description}</div>
-                    </div>
-                    <div className={s.address}>
-                        <div>{u.address.country},</div>
-                        <div>{u.address.cityName}</div>
-                    </div>
-                </div>
-            </div>
-        )
-    })
 
-    return (
-        <div className={s.usersWrapper}>
-            Users:
-            {mapUsers}
-        </div>
-    )
+    render() {
+        return (
+            <div className={s.usersWrapper}>
+                Users:
+                {this.props.usersPage.users && this.props.usersPage.users.map(u => {
+                    return (
+                        <div key={u.id} className={s.userWrapper}>
+                            <div className={s.avatarWrapper}>
+                                <div className={s.avatar}>
+                                    <img src={u.photos.small ? u.photos.small : logoMan} alt={u.name}/>
+                                </div>
+                                <div className={s.button}>
+                                    {u.followed
+                                        ? <button onClick={() => this.props.unfollow(u.id)}>Unfollow</button>
+                                        : <button onClick={() => this.props.follow(u.id)}>Follow</button>}
+                                </div>
+                            </div>
+                            <div className={s.descriptionWrapper}>
+                                <div className={s.nameDescription}>
+                                    <div className={s.name}>{u.name}</div>
+                                    <div>{u.status}</div>
+                                </div>
+                                <div className={s.address}>
+                                    <div>{'u.address.country'},</div>
+                                    <div>{'u.address.cityName'}</div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                })}
+            </div>)
+    }
 }
