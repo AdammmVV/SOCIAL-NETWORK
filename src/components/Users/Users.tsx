@@ -1,57 +1,59 @@
-import React from "react";
-import {InitialStateUsersType, UsersType} from "../../redux/users-reducer";
+import React, {ChangeEvent} from "react";
+import {InitialStateUsersType} from "../../redux/users-reducer";
 import logoMan from "../../img/logo-man.jpg";
 import s from "./Users.module.css"
-import axios from "axios";
+import {Preloader} from "../common/preloader/Preloader.";
 
 type UsersPropsType = {
     usersPage: InitialStateUsersType,
     follow: (userId: number) => void,
     unfollow: (userId: number) => void,
-    setUsers: (newUsers: UsersType[]) => void,
-
+    setNumberPageHandler: (e: ChangeEvent<HTMLSelectElement>) => void
 }
 
-export class Users extends React.Component<UsersPropsType> {
+export const Users: React.FC<UsersPropsType> = (props) => {
 
-    constructor(props: UsersPropsType) {
-        super(props);
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
-            this.props.setUsers(response.data.items)
-        })
+    let page = Math.ceil(props.usersPage.totalCount / props.usersPage.countPage)
+    let pagination = []
+    for (let i = 1; i <= page; i++) {
+        pagination.push(i)
     }
 
-
-    render() {
-        return (
-            <div className={s.usersWrapper}>
-                Users:
-                {this.props.usersPage.users && this.props.usersPage.users.map(u => {
-                    return (
-                        <div key={u.id} className={s.userWrapper}>
-                            <div className={s.avatarWrapper}>
-                                <div className={s.avatar}>
-                                    <img src={u.photos.small ? u.photos.small : logoMan} alt={u.name}/>
-                                </div>
-                                <div className={s.button}>
-                                    {u.followed
-                                        ? <button onClick={() => this.props.unfollow(u.id)}>Unfollow</button>
-                                        : <button onClick={() => this.props.follow(u.id)}>Follow</button>}
-                                </div>
+    return (
+        <div className={s.usersWrapper}>
+            Users:
+            {props.usersPage.isFetching && <Preloader/>}
+            <div>
+                <select name="Users" value={props.usersPage.numberPage} onChange={props.setNumberPageHandler}>
+                    {pagination.map(p => (<option key={p}>{p}</option>))}
+                </select>
+            </div>
+            {props.usersPage.items && props.usersPage.items.map(i => {
+                return (
+                    <div key={i.id} className={s.userWrapper}>
+                        <div className={s.avatarWrapper}>
+                            <div className={s.avatar}>
+                                <img src={i.photos.small ? i.photos.small : logoMan} alt={i.name}/>
                             </div>
-                            <div className={s.descriptionWrapper}>
-                                <div className={s.nameDescription}>
-                                    <div className={s.name}>{u.name}</div>
-                                    <div>{u.status}</div>
-                                </div>
-                                <div className={s.address}>
-                                    <div>{'u.address.country'},</div>
-                                    <div>{'u.address.cityName'}</div>
-                                </div>
+                            <div className={s.button}>
+                                {i.followed
+                                    ? <button onClick={() => props.unfollow(i.id)}>Unfollow</button>
+                                    : <button onClick={() => props.follow(i.id)}>Follow</button>}
                             </div>
                         </div>
-                    )
-                })}
-            </div>)
-    }
+                        <div className={s.descriptionWrapper}>
+                            <div className={s.nameDescription}>
+                                <div className={s.name}>{i.name}</div>
+                                <div>{i.status}</div>
+                            </div>
+                            <div className={s.address}>
+                                <div>{'i.address.country'},</div>
+                                <div>{'i.address.cityName'}</div>
+                            </div>
+                        </div>
+                    </div>
+                )
+            })}
+        </div>
+    )
 }
