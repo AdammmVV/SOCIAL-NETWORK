@@ -1,27 +1,18 @@
 import React, {ChangeEvent} from "react";
 import {connect} from "react-redux";
 import {
-    followAC,
-    InitialStateUsersType, setIsFetchingAC,
-    setNumberPageAC,
-    setUsersAC,
-    unfollowAC,
+    follow,
+    InitialStateUsersType, setIsFetching,
+    setNumberPage,
+    setUsers,
+    unfollow,
 } from "../../redux/users-reducer";
-import {Dispatch} from "redux";
 import {AppStateType} from "../../redux/redux-store";
 import {Users} from "./Users";
 import axios from "axios";
 
 type MapStateToPropsType = {
     usersPage: InitialStateUsersType
-}
-
-type MapDispatchToPropsType = {
-    follow: (userId: number) => void
-    unfollow: (userId: number) => void
-    setUsers: (newUsers: InitialStateUsersType) => void
-    setNumberPage: (numberPage: number) => void
-    setIsFetching: (isFetching: boolean) => void
 }
 
 type UsersPropsType = {
@@ -70,24 +61,9 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-const mapDispatchToProps = (dispatch: Dispatch): MapDispatchToPropsType => {
-    return {
-        follow: (userId: number) => {
-            dispatch(followAC(userId))
-        },
-        unfollow: (userId: number) => {
-            dispatch(unfollowAC(userId))
-        },
-        setUsers: (newUsers: InitialStateUsersType) => {
-            dispatch(setUsersAC(newUsers))
-        },
-        setNumberPage: (numberPage: number) => {
-            dispatch(setNumberPageAC(numberPage))
-        },
-        setIsFetching: (isFetching: boolean) => {
-            dispatch(setIsFetchingAC(isFetching))
-        }
-    }
-}
-
-export const UsersContainer = connect(mapStateToProps, mapDispatchToProps)(UsersAPIComponent)
+export const UsersContainer = connect(mapStateToProps, {
+    follow,
+    unfollow,
+    setUsers,
+    setNumberPage,
+    setIsFetching})(UsersAPIComponent)
