@@ -52,13 +52,13 @@ type MainAT = FollowAT
     | SetNumberPageAT
     | SetIsFetchingAC
 
-type FollowAT = ReturnType<typeof followAC>
-type UnfollowAT = ReturnType<typeof unfollowAC>
-type SetUsersAT = ReturnType<typeof setUsersAC>
-type SetNumberPageAT = ReturnType<typeof setNumberPageAC>
-type SetIsFetchingAC = ReturnType<typeof setIsFetchingAC>
+type FollowAT = ReturnType<typeof follow>
+type UnfollowAT = ReturnType<typeof unfollow>
+type SetUsersAT = ReturnType<typeof setUsers>
+type SetNumberPageAT = ReturnType<typeof setNumberPage>
+type SetIsFetchingAC = ReturnType<typeof setIsFetching>
 
-export const followAC = (userId: number) => {
+export const follow = (userId: number) => {
     return {
         type: 'FOLLOW',
         payload: {
@@ -67,7 +67,7 @@ export const followAC = (userId: number) => {
     } as const
 }
 
-export const unfollowAC = (userId: number) => {
+export const unfollow = (userId: number) => {
     return {
         type: 'UNFOLLOW',
         payload: {
@@ -76,7 +76,7 @@ export const unfollowAC = (userId: number) => {
     } as const
 }
 
-export const setUsersAC = (newUsers: InitialStateUsersType) => {
+export const setUsers = (newUsers: InitialStateUsersType) => {
     return {
         type: 'SET-USERS',
         payload: {
@@ -85,7 +85,7 @@ export const setUsersAC = (newUsers: InitialStateUsersType) => {
     } as const
 }
 
-export const setNumberPageAC = (numberPage: number) => {
+export const setNumberPage = (numberPage: number) => {
     return {
         type: 'SET-NUMBER-PAGE',
         payload: {
@@ -94,7 +94,7 @@ export const setNumberPageAC = (numberPage: number) => {
     } as const
 }
 
-export const setIsFetchingAC = (isFetching: boolean) => {
+export const setIsFetching = (isFetching: boolean) => {
     return {
         type: 'SET-IS-FETCHING',
         payload: {
