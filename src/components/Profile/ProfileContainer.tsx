@@ -4,6 +4,7 @@ import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {ProfileInfoType, setIsFetching, setProfileInfo} from "../../redux/profile-reducer";
+import {RouteComponentProps, withRouter} from "react-router-dom";
 
 type ProfileAPIContainerPropsType = {
     profileInfo: ProfileInfoType
@@ -12,10 +13,15 @@ type ProfileAPIContainerPropsType = {
     setIsFetching: (isFetching: boolean) => void
 }
 
-export class ProfileAPIContainer extends React.Component<ProfileAPIContainerPropsType> {
+type RoutParams = {
+    userId: string
+}
+
+export class ProfileAPIContainer extends React.Component<RouteComponentProps<RoutParams> & ProfileAPIContainerPropsType> {
     componentDidMount() {
+        let userId = this.props.match.params.userId || 2
         this.props.setIsFetching(true)
-        axios.get('https://social-network.samuraijs.com/api/1.0/profile/28317')
+        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
             .then(require => {
                 this.props.setIsFetching(false)
                 this.props.setProfileInfo(require.data)
@@ -43,4 +49,6 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     }
 }
 
-export const ProfileContainer = connect(mapStateToProps, {setProfileInfo, setIsFetching})(ProfileAPIContainer)
+let ProfileWithRouterContainer = withRouter(ProfileAPIContainer)
+
+export const ProfileContainer = connect(mapStateToProps, {setProfileInfo, setIsFetching})(ProfileWithRouterContainer)
