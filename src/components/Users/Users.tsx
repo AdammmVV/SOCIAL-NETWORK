@@ -2,7 +2,8 @@ import React, {ChangeEvent} from "react";
 import {InitialStateUsersType} from "../../redux/users-reducer";
 import logoMan from "../../img/logo-man.jpg";
 import s from "./Users.module.css"
-import {Preloader} from "../common/preloader/Preloader.";
+import {Preloader} from "../common/preloader/Preloader";
+import {NavLink} from "react-router-dom";
 
 type UsersPropsType = {
     usersPage: InitialStateUsersType,
@@ -32,9 +33,11 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                 return (
                     <div key={i.id} className={s.userWrapper}>
                         <div className={s.avatarWrapper}>
-                            <div className={s.avatar}>
-                                <img src={i.photos.small ? i.photos.small : logoMan} alt={i.name}/>
-                            </div>
+                            <NavLink to={`/profile/${i.id}`}>
+                                <div className={s.avatar}>
+                                    <img src={i.photos.small ? i.photos.small : logoMan} alt={i.name}/>
+                                </div>
+                            </NavLink>
                             <div className={s.button}>
                                 {i.followed
                                     ? <button onClick={() => props.unfollow(i.id)}>Unfollow</button>
