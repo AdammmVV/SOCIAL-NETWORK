@@ -24,13 +24,13 @@ export const NavBar = (props: NavBarPropsType) => {
         <div className={s.navBar}>
             <div className={s.navLincContainer}>
                 <div className={s.item}>
-                    <NavLink to='/profile' activeClassName={s.active}>Profile</NavLink>
+                    <NavLink to='profile' activeClassName={s.active}>Profile</NavLink>
                 </div>
                 <div className={s.item}>
-                    <NavLink to='/dialogs' activeClassName={s.active}>Message</NavLink>
+                    <NavLink to='dialogs' activeClassName={s.active}>Message</NavLink>
                 </div>
                 <div className={s.item}>
-                    <NavLink to='/news' activeClassName={s.active}>News</NavLink>
+                    <NavLink to='news' activeClassName={s.active}>News</NavLink>
                 </div>
                 <div className={s.item}>
                     <NavLink to='music' activeClassName={s.active}>Music</NavLink>
