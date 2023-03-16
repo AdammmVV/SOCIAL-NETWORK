@@ -15,14 +15,12 @@ type MapStateToPropsType = {
     usersPage: InitialStateUsersType
 }
 
-type UsersPropsType = {
-    usersPage: InitialStateUsersType,
+type UsersPropsType = MapStateToPropsType & {
     follow: (userId: number) => void,
     unfollow: (userId: number) => void,
     setUsers: (newUsers: InitialStateUsersType) => void,
     setNumberPage: (numberPage: number) => void
     setIsFetching: (isFetching: boolean) => void
-
 }
 
 export class UsersAPIComponent extends React.Component<UsersPropsType> {
@@ -66,4 +64,5 @@ export const UsersContainer = connect(mapStateToProps, {
     unfollow,
     setUsers,
     setNumberPage,
-    setIsFetching})(UsersAPIComponent)
+    setIsFetching
+})(UsersAPIComponent)
