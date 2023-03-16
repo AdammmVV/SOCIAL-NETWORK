@@ -1,17 +1,23 @@
 import React from "react";
 import s from './Header.module.css'
 import logo from '../../img/logo-red.png'
+import { NavLink } from "react-router-dom";
+import {HeaderAPIType} from "./HeaderContainer";
 
-const Header = () => {
+type HeaderPropsTyp = HeaderAPIType
+
+
+const Header: React.FC<HeaderPropsTyp> = ({
+    isAuth,
+    login
+                                          }) => {
     return (
         <div className={s.header}>
             <div>
-                <img src={logo}/>
+                <img src={logo} alt='avatar'/>
             </div>
             <div className={s.formWrapper}>
-                <input type="email" placeholder={'Email'}/>
-                <input type="password" placeholder={"Password"}/>
-                <button>Log in</button>
+                {isAuth ? <>{login}</> : <NavLink to={'/login'}>Log in</NavLink>}
             </div>
         </div>
     )
