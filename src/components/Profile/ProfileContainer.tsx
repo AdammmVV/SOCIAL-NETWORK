@@ -1,10 +1,10 @@
 import React from "react";
 import {Profile} from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {ProfileInfoType, setIsFetching, setProfileInfo} from "../../redux/profile-reducer";
 import {RouteComponentProps, withRouter} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 type ProfileAPIContainerPropsType = MapStateToPropsType & {
     setProfileInfo: (profileInfo: ProfileInfoType) => void
@@ -17,13 +17,11 @@ type RoutParams = {
 
 export class ProfileAPIContainer extends React.Component<RouteComponentProps<RoutParams> & ProfileAPIContainerPropsType> {
     componentDidMount() {
-        debugger
-        let userId = this.props.match.params.userId || 28108
+        let userId = this.props.match.params.userId || '28108'
         this.props.setIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(require => {
+        usersAPI.getUser(userId).then(data => {
                 this.props.setIsFetching(false)
-                this.props.setProfileInfo(require.data)
+                this.props.setProfileInfo(data)
             })
     }
     render() {
