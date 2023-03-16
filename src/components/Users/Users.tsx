@@ -4,6 +4,7 @@ import logoMan from "../../img/logo-man.jpg";
 import s from "./Users.module.css"
 import {Preloader} from "../common/preloader/Preloader";
 import {NavLink} from "react-router-dom";
+import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     usersPage: InitialStateUsersType,
@@ -30,6 +31,23 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                 </select>
             </div>
             {props.usersPage.items && props.usersPage.items.map(i => {
+
+                const followHandler = () => {
+                    usersAPI.createFollow(i.id).then(data => {
+                        if (data.resultCode === 0) {
+                            props.follow(i.id)
+                        }
+                    })
+                }
+
+                const unfollowHandler = () => {
+                    usersAPI.createUnfollow(i.id).then(data => {
+                        if (data.resultCode === 0) {
+                            props.unfollow(i.id)
+                        }
+                    })
+                }
+
                 return (
                     <div key={i.id} className={s.userWrapper}>
                         <div className={s.avatarWrapper}>
@@ -40,8 +58,8 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                             </NavLink>
                             <div className={s.button}>
                                 {i.followed
-                                    ? <button onClick={() => props.unfollow(i.id)}>Unfollow</button>
-                                    : <button onClick={() => props.follow(i.id)}>Follow</button>}
+                                    ? <button onClick={unfollowHandler}>Unfollow</button>
+                                    : <button onClick={followHandler}>Follow</button>}
                             </div>
                         </div>
                         <div className={s.descriptionWrapper}>
