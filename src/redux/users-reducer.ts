@@ -35,7 +35,6 @@ export const usersReducer = (state: InitialStateUsersType = initialState, action
         case 'UNFOLLOW':
             return {...state, items: state.items.map(i => i.id === action.payload.userId ? {...i, followed: false} : i)}
         case 'SET-USERS':
-            console.log(action.payload.newUsers)
             return {...state, ...action.payload.newUsers}
         case "SET-NUMBER-PAGE":
             return {...state, numberPage: action.payload.numberPage}
