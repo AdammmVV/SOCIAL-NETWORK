@@ -2,14 +2,15 @@ import React, {ChangeEvent} from "react";
 import {connect} from "react-redux";
 import {
     follow,
-    InitialStateUsersType, setIsFetching,
+    InitialStateUsersType,
+    setIsFetching,
     setNumberPage,
     setUsers,
     unfollow,
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Users} from "./Users";
-import axios from "axios";
+import {usersAPI} from "../../api/api";
 
 type MapStateToPropsType = {
     usersPage: InitialStateUsersType
@@ -27,20 +28,18 @@ export class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
         this.props.setIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPage.countPage}&page=${this.props.usersPage.numberPage}`)
-            .then(response => {
+        usersAPI.getUsers(this.props.usersPage.countPage, this.props.usersPage.numberPage).then(data => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(response.data)
+                this.props.setUsers(data)
             })
     }
 
     setNumberPageHandler = (e: ChangeEvent<HTMLSelectElement>) => {
         this.props.setNumberPage(+e.currentTarget.value)
         this.props.setIsFetching(true)
-        axios.get(`https://social-network.samuraijs.com/api/1.0/users?count=${this.props.usersPage.countPage}&page=${+e.currentTarget.value}`)
-            .then(response => {
+        usersAPI.getUsers(this.props.usersPage.countPage, +e.currentTarget.value).then(data => {
                 this.props.setIsFetching(false)
-                this.props.setUsers(response.data)
+                this.props.setUsers(data)
             })
     }
 
