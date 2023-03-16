@@ -5,7 +5,7 @@
     z-index: 1000;
     width: 100%;
     left: 0;
-    box-shadow: 0px 0px 5px -1px rgba(34, 60, 80, 0.81);
+    box-shadow: 0 0 5px -1px rgba(34, 60, 80, 0.81);
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -29,7 +29,11 @@
     border: black solid 1px;
 }
 
-.formWrapper button {
+.formWrapper a {
+    display: inline-flex;
+    justify-content: center;
+    text-decoration: none;
+    align-items: center;
     width: 60px;
     height: 40px;
     border-radius: 10px;
@@ -38,11 +42,12 @@
     color: white;
 }
 
-.formWrapper button:hover {
+
+.formWrapper a:hover {
     background-color: #1459b7
 }
 
-.formWrapper button:active {
+.formWrapper a:active {
     background-color: #1b74e4;
 }
 
