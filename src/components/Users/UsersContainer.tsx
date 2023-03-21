@@ -2,15 +2,15 @@ import React, {ChangeEvent} from "react";
 import {connect} from "react-redux";
 import {
     follow,
+    getUsers,
     InitialStateUsersType,
-    setIsFetching,
     setNumberPage,
     setUsers,
+    toggleFollowingProgress,
     unfollow,
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Users} from "./Users";
-import {usersAPI} from "../../api/api";
 
 type MapStateToPropsType = {
     usersPage: InitialStateUsersType
@@ -21,26 +21,19 @@ type UsersPropsType = MapStateToPropsType & {
     unfollow: (userId: number) => void,
     setUsers: (newUsers: InitialStateUsersType) => void,
     setNumberPage: (numberPage: number) => void
-    setIsFetching: (isFetching: boolean) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
+    getUsers: (countPage: number, numberPage: number) => void
 }
 
 export class UsersAPIComponent extends React.Component<UsersPropsType> {
 
     componentDidMount() {
-        this.props.setIsFetching(true)
-        usersAPI.getUsers(this.props.usersPage.countPage, this.props.usersPage.numberPage).then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data)
-            })
+        this.props.getUsers(this.props.usersPage.countPage, this.props.usersPage.numberPage)
     }
 
     setNumberPageHandler = (e: ChangeEvent<HTMLSelectElement>) => {
         this.props.setNumberPage(+e.currentTarget.value)
-        this.props.setIsFetching(true)
-        usersAPI.getUsers(this.props.usersPage.countPage, +e.currentTarget.value).then(data => {
-                this.props.setIsFetching(false)
-                this.props.setUsers(data)
-            })
+        this.props.getUsers(this.props.usersPage.countPage, +e.currentTarget.value)
     }
 
     render() {
@@ -48,7 +41,7 @@ export class UsersAPIComponent extends React.Component<UsersPropsType> {
                       follow={this.props.follow}
                       unfollow={this.props.unfollow}
                       setNumberPageHandler={this.setNumberPageHandler}
-        />
+                      toggleFollowingProgress={this.props.toggleFollowingProgress}/>
     }
 }
 
@@ -63,5 +56,6 @@ export const UsersContainer = connect(mapStateToProps, {
     unfollow,
     setUsers,
     setNumberPage,
-    setIsFetching
+    toggleFollowingProgress,
+    getUsers
 })(UsersAPIComponent)
