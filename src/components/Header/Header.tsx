@@ -11,6 +11,8 @@ const Header: React.FC<HeaderPropsTyp> = ({
     isAuth,
     login
                                           }) => {
+
+    console.log(isAuth, login)
     return (
         <div className={s.header}>
             <div>
