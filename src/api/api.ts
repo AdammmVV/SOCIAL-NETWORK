@@ -22,8 +22,11 @@ export const usersAPI = {
         return response.data
     },
     async getUser(userId: string) {
-        const response = await axios.get(`profile/${userId}`)
+        const response = await instance.get(`profile/${userId}`)
         return response.data
-
     },
+    async getMe() {
+        const response = await instance.get(`auth/me`)
+        return response.data
+    }
 }
