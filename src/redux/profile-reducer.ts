@@ -1,4 +1,6 @@
 import {v1} from "uuid";
+import {Dispatch} from "redux";
+import {usersAPI} from "../api/api";
 
 export type PostsType = {
     id: string
@@ -101,3 +103,11 @@ export const setIsFetching = (isFetching: boolean) => ({
         isFetching
     }
 } as const)
+
+export const getUser = (userId: string) => (dispatch: Dispatch) => {
+    dispatch(setIsFetching(true))
+    usersAPI.getUser(userId).then(data => {
+        dispatch(setProfileInfo(data))
+        dispatch(setIsFetching(false))
+    })
+}
