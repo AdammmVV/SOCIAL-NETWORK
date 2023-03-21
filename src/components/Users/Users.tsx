@@ -4,13 +4,13 @@ import logoMan from "../../img/logo-man.jpg";
 import s from "./Users.module.css"
 import {Preloader} from "../common/preloader/Preloader";
 import {NavLink} from "react-router-dom";
-import {usersAPI} from "../../api/api";
 
 type UsersPropsType = {
     usersPage: InitialStateUsersType,
     follow: (userId: number) => void,
     unfollow: (userId: number) => void,
     setNumberPageHandler: (e: ChangeEvent<HTMLSelectElement>) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
 }
 
 export const Users: React.FC<UsersPropsType> = (props) => {
@@ -31,23 +31,6 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                 </select>
             </div>
             {props.usersPage.items && props.usersPage.items.map(i => {
-
-                const followHandler = () => {
-                    usersAPI.createFollow(i.id).then(data => {
-                        if (data.resultCode === 0) {
-                            props.follow(i.id)
-                        }
-                    })
-                }
-
-                const unfollowHandler = () => {
-                    usersAPI.createUnfollow(i.id).then(data => {
-                        if (data.resultCode === 0) {
-                            props.unfollow(i.id)
-                        }
-                    })
-                }
-
                 return (
                     <div key={i.id} className={s.userWrapper}>
                         <div className={s.avatarWrapper}>
@@ -58,8 +41,10 @@ export const Users: React.FC<UsersPropsType> = (props) => {
                             </NavLink>
                             <div className={s.button}>
                                 {i.followed
-                                    ? <button onClick={unfollowHandler}>Unfollow</button>
-                                    : <button onClick={followHandler}>Follow</button>}
+                                    ? <button onClick={()=>props.unfollow(i.id)}
+                                              disabled={props.usersPage.toggleFollowing.some(id => id === i.id)}>Unfollow</button>
+                                    : <button onClick={()=>props.follow(i.id)}
+                                              disabled={props.usersPage.toggleFollowing.some(id => id === i.id)}>Follow</button>}
                             </div>
                         </div>
                         <div className={s.descriptionWrapper}>
