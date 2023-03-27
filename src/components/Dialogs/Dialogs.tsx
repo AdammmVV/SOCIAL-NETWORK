@@ -3,11 +3,9 @@ import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {InitialStateDialogsPageType} from "../../redux/dialog-reducer";
-import {Redirect} from "react-router-dom";
 
 type DialogsPropsType = {
     dialogsPage: InitialStateDialogsPageType
-    isAuth: boolean
     updateDialogMessage: (textMessage: string)=> void
     addMessage: ()=> void
 }
@@ -28,7 +26,6 @@ export const Dialogs = (props: DialogsPropsType) => {
         props.addMessage()
     }
 
-    if (!props.isAuth) return <Redirect to={'/login'}/>
     return (
         <div className={s.dialogs}>
             <div className={s.dialogsItem}>
