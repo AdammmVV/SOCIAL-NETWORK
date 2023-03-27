@@ -38,6 +38,10 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
     )
 }
 
+export const Status = (props: any) => {
+    return <span>О мне: {props.profileInfo.aboutMe}</span>
+}
+
 
 // return (
 //     <div className={s.content}>
