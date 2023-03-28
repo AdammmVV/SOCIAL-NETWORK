@@ -1,6 +1,6 @@
 import {v1} from "uuid";
 import {Dispatch} from "redux";
-import {usersAPI} from "../api/api";
+import {profileAPI, usersAPI} from "../api/api";
 
 export type PostsType = {
     id: string
@@ -59,6 +59,7 @@ let initialState = {
     ] as PostsType[],
     isFetching: false,
     profileMessage: '',
+    profileStatus: ''
 }
 
 export type InitialStateProfilePageStateType = typeof initialState
@@ -74,6 +75,8 @@ export const profileReducer = (state: InitialStateProfilePageStateType = initial
             return {...state, profileInfo: action.payload.profileInfo}
         case "SET-IS-FETCHING":
             return {...state, isFetching: action.payload.isFetching}
+        case "SET-STATUS":
+            return {...state, profileStatus: action.payload.titleStatus}
         default:
             return state
     }
@@ -83,6 +86,7 @@ type MaineAT = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof updateProfileMessageActionCreator>
     | ReturnType<typeof setProfileInfo>
     | ReturnType<typeof setIsFetching>
+    | ReturnType<typeof setStatus>
 
 export const addPostActionCreator = () => ({type: "ADD-POST"} as const)
 export const updateProfileMessageActionCreator = (text: string) => ({
@@ -104,10 +108,32 @@ export const setIsFetching = (isFetching: boolean) => ({
     }
 } as const)
 
+
+export const setStatus = (titleStatus: string) => ({
+    type: "SET-STATUS",
+    payload: {
+        titleStatus
+    }
+} as const)
+
 export const getUser = (userId: string) => (dispatch: Dispatch) => {
     dispatch(setIsFetching(true))
     usersAPI.getUser(userId).then(data => {
         dispatch(setProfileInfo(data))
         dispatch(setIsFetching(false))
+    })
+}
+
+export const getStatus = (userId: string) => (dispatch: Dispatch) => {
+    profileAPI.getProfileStatus(userId).then(data => {
+        dispatch(setStatus(data))
+    })
+}
+
+export const updateStatus = (newStatus: string) => (dispatch: Dispatch) => {
+    profileAPI.updateStatus(newStatus).then(data => {
+        if (data.data.resultCode === 0) {
+            dispatch(setStatus(newStatus))
+        }
     })
 }
