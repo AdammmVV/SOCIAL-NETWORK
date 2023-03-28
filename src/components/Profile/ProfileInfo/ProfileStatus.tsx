@@ -1,9 +1,27 @@
 import React, {ChangeEvent} from "react";
 
-export class ProfileStatus extends React.Component<any, any> {
+type ProfileStatusPropsType = {
+    profileStatus: string
+    updateStatus: (newStatus: string) => void
+}
+
+type StateType = {
+    editMode: boolean
+    title: string
+}
+
+export class ProfileStatus extends React.Component<ProfileStatusPropsType> {
     state = {
         editMode: false,
         title: this.props.profileStatus
+    }
+
+    componentDidUpdate(prevProps: Readonly<ProfileStatusPropsType>, prevState: Readonly<StateType>) {
+        if (prevProps.profileStatus !== this.props.profileStatus) {
+            this.setState({
+                title: this.props.profileStatus
+            })
+        }
     }
 
     activeInput = () => {
