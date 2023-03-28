@@ -4,8 +4,10 @@ import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {ProfileInfoType} from "../../redux/profile-reducer";
 
 type ProfilePropsType = {
+    updateStatus: (newStatus: string) => void
     profileInfo: ProfileInfoType
     isFetching: boolean
+    profileStatus: string
 }
 
 export const Profile = (props: ProfilePropsType) => {
