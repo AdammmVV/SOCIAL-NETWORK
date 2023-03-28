@@ -3,17 +3,19 @@ import React from "react";
 import {ProfileInfoType} from "../../../redux/profile-reducer";
 import ava from '../../../img/avaEvery.jpg'
 import {Preloader} from "../../common/preloader/Preloader";
+import {ProfileStatus} from "./ProfileStatus";
 
 type ProfileInfoPropsType = {
+    updateStatus: (newStatus: string) => void
     profileInfo: ProfileInfoType
     isFetching: boolean
+    profileStatus: string
 }
 
 export const ProfileInfo = (props: ProfileInfoPropsType) => {
-
     return (
         <div className={s.content}>
-            { props.isFetching && <Preloader/> }
+            {props.isFetching && <Preloader/>}
             <div className={s.avatarDescriptionContainer}>
                 <img src='https://обложка-вк.рф/src/img/lower/it/it-khakery/it-khakery-1.png' alt="cover"/>
                 <div className={s.avatarDescription}>
@@ -23,6 +25,8 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
                             alt='avatar'/>
                         </span>
                     <div className={s.description}>
+                        Статус:
+                        <ProfileStatus profileStatus={props.profileStatus} updateStatus={props.updateStatus}/>
                         <span>{props.profileInfo.fullName}</span>
                         <span>О мне: {props.profileInfo.aboutMe}</span>
                         <div>
@@ -36,10 +40,6 @@ export const ProfileInfo = (props: ProfileInfoPropsType) => {
             </div>
         </div>
     )
-}
-
-export const Status = (props: any) => {
-    return <span>О мне: {props.profileInfo.aboutMe}</span>
 }
 
 
