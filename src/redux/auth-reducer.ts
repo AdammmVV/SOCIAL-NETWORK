@@ -1,5 +1,6 @@
 import {Dispatch} from "redux";
 import {authAPI} from "../api/api";
+import {FormDataType} from "../components/Login/Login";
 
 export type InitialStateUsersType = {
     id: number
@@ -25,10 +26,7 @@ export const authReducer = (state: InitialStateUsersType = initialState, action:
 
 export type MainAT = SetUsersAT
 
-
-
 type SetUsersAT = ReturnType<typeof setUserData>
-
 
 export const setUserData = (userId: number, login: string, email: string) => {
     return {
@@ -48,4 +46,8 @@ export const getMe = () => (dispatch: Dispatch) => {
             dispatch(setUserData(id, login, email))
         }
     })
+}
+
+export const signIn = (dataLogin: FormDataType) => (dispatch: Dispatch) => {
+    authAPI.logIn(dataLogin).then(data => console.log(data))
 }
