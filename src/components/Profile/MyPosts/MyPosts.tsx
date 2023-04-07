@@ -1,22 +1,18 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './MyPosts.module.css'
 import Post from "./Post/Post";
 import {InitialStateProfilePageStateType} from "../../../redux/profile-reducer";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 
 type MyPostsPropsType = {
     profilePage: InitialStateProfilePageStateType
-    addPost: () => void
-    updateProfileMessage: (newMessage: string) => void
+    addPost: (newPost: string) => void
 }
 
 export const MyPosts = (props: MyPostsPropsType) => {
 
-    const onAddPost = () => {
-        props.addPost()
-    }
-
-    const onChangeMessageHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateProfileMessage(e.currentTarget.value)
+    const onAddPost = (value: AddNewPostFormType) => {
+        props.addPost(value.profileMessage)
     }
 
     let post = props.profilePage.posts.map(p =>
@@ -27,12 +23,7 @@ export const MyPosts = (props: MyPostsPropsType) => {
                 <div>
                     My posts
                 </div>
-                <div className={s.addPostTextarea}>
-                    <textarea placeholder={'New post'} onChange={onChangeMessageHandler} value={props.profilePage.profileMessage}/>
-                </div>
-                <div className={s.addPostsButton}>
-                    <button onClick={onAddPost}>Add post</button>
-                </div>
+                <AddNewPostWithForm onSubmit={onAddPost}/>
             </div>
             <div className={s.posts}>
                 {post}
@@ -40,3 +31,25 @@ export const MyPosts = (props: MyPostsPropsType) => {
         </div>
     );
 }
+
+export type AddNewPostFormType = {
+    profileMessage: string
+}
+
+
+export const AddNewPostForm: React.FC<InjectedFormProps<AddNewPostFormType>> = (props) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div className={s.addPostTextarea}>
+                <Field component='textarea' name='profileMessage' placeholder='New post' />
+            </div>
+            <div className={s.addPostsButton}>
+                <button>Add post</button>
+            </div>
+        </form>
+    )
+}
+
+export const AddNewPostWithForm = reduxForm<AddNewPostFormType>({
+    form: 'addNewPost'
+})(AddNewPostForm)
