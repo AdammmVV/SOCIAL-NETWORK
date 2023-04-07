@@ -1,4 +1,5 @@
 import axios from "axios";
+import {FormDataType} from "../components/Login/Login";
 
 const instance = axios.create({
     withCredentials: true,
@@ -31,14 +32,21 @@ export const authAPI = {
     async getMe() {
         const response = await instance.get(`auth/me`)
         return response.data
+    },
+    logIn(dataLogin: FormDataType) {
+        return instance.post('auth/login', {
+            email: dataLogin.email,
+            password: dataLogin.password,
+            rememberMe: dataLogin.rememberMe
+        }).then(data => data.data)
     }
 }
 
 export const profileAPI = {
-    getProfileStatus (userId: string) {
+    getProfileStatus(userId: string) {
         return instance.get(`profile/status/${userId}`).then(data => data.data)
     },
     updateStatus(status: string) {
-        return instance.put('profile/status', { status: status }).then(data => data)
+        return instance.put('profile/status', {status: status}).then(data => data)
     }
 }
