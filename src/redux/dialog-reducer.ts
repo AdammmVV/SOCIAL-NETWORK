@@ -39,8 +39,7 @@ let initialState = {
         {id: v1(), message: 'I`m Valery'},
         {id: v1(), message: 'How are you?'},
         {id: v1(), message: 'I`m Alena'},
-    ] as MessagesType[],
-    dialogMessage: ''
+    ] as MessagesType[]
 }
 
 export type InitialStateDialogsPageType = typeof initialState
@@ -48,17 +47,11 @@ export type InitialStateDialogsPageType = typeof initialState
 export const dialogReducer = (state: InitialStateDialogsPageType = initialState, action: ActionType) => {
     switch (action.type) {
         case "ADD-MESSAGE":
-            const message = {id: v1(), message: state.dialogMessage}
-            return {...state, messages: [...state.messages, message], dialogMessage: ''}
-        case "UPDATE-DIALOG-MESSAGE":
-            return {...state, dialogMessage: action.newPost}
+            const message = {id: v1(), message: action.newMessage}
+            return {...state, messages: [...state.messages, message]}
         default:
             return state
     }
 }
 
-export const addMessageActionCreator = () => ({type: "ADD-MESSAGE"} as const)
-export const updateDialogMessageActionCreator = (text: string) => ({
-    type: "UPDATE-DIALOG-MESSAGE",
-    newPost: text
-} as const)
+export const addMessageActionCreator = (newMessage: string) => ({type: "ADD-MESSAGE", newMessage} as const)
