@@ -1,15 +1,9 @@
-import {v1} from "uuid";
-import logoMan from '../img/logo-man.jpg'
-import logoWoman from '../img/logoWoman.jpg'
-import {addPostActionCreator, profileReducer, updateProfileMessageActionCreator} from "./profile-reducer";
-import {addMessageActionCreator, dialogReducer, updateDialogMessageActionCreator} from "./dialog-reducer";
-import {navBarReducer} from "./navBar-reducer";
+import {addPostActionCreator} from "./profile-reducer";
+import {addMessageActionCreator} from "./dialog-reducer";
 
 export type ActionType =
     ReturnType<typeof addMessageActionCreator>
-    | ReturnType<typeof updateDialogMessageActionCreator>
     | ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateProfileMessageActionCreator>
 
 type NavType = {
     id: string
