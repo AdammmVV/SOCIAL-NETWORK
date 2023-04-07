@@ -1,13 +1,13 @@
-import React, {ChangeEvent} from "react";
+import React from "react";
 import s from './Dialogs.module.css'
 import {DialogItem} from "./DialogItem/DialogItem";
 import {Message} from "./Message/Message";
 import {InitialStateDialogsPageType} from "../../redux/dialog-reducer";
+import {AddMessageFormDataType, AddMessageWithForm} from "./AddMessageForm";
 
 type DialogsPropsType = {
     dialogsPage: InitialStateDialogsPageType
-    updateDialogMessage: (textMessage: string)=> void
-    addMessage: ()=> void
+    addMessage: (newMessage: string) => void
 }
 
 
@@ -18,12 +18,8 @@ export const Dialogs = (props: DialogsPropsType) => {
     let message = props.dialogsPage.messages.map(m =>
         <Message key={m.id} message={m.message}/>)
 
-    const onChangeTextareaDialogHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        props.updateDialogMessage(e.currentTarget.value)
-    }
-
-    const onAddMessage = () => {
-        props.addMessage()
+    const onAddMessage = (value: AddMessageFormDataType) => {
+        props.addMessage(value.dialogMessage)
     }
 
     return (
@@ -35,14 +31,12 @@ export const Dialogs = (props: DialogsPropsType) => {
             </div>
             <div className={s.messages}>
                 {message}
-                <div>
-                    <textarea onChange={onChangeTextareaDialogHandler}
-                              value={props.dialogsPage.dialogMessage}/>
-                </div>
-                <div>
-                    <button onClick={onAddMessage}>Add message</button>
-                </div>
+                <AddMessageWithForm onSubmit={onAddMessage}/>
             </div>
         </div>
     )
 }
+
+
+
+
