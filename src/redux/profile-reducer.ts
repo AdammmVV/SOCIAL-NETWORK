@@ -58,7 +58,6 @@ let initialState = {
         {id: v1(), message: 'Yo!', likeCount: '17'},
     ] as PostsType[],
     isFetching: false,
-    profileMessage: '',
     profileStatus: ''
 }
 
@@ -67,10 +66,8 @@ export type InitialStateProfilePageStateType = typeof initialState
 export const profileReducer = (state: InitialStateProfilePageStateType = initialState, action: MaineAT) => {
     switch (action.type) {
         case "ADD-POST":
-            let post = {id: v1(), message: state.profileMessage, likeCount: '0'}
-            return {...state, posts: [post, ...state.posts], profileMessage: ''}
-        case "UPDATE-PROFILE-MESSAGE":
-            return {...state, profileMessage: action.newMessage}
+            let post = {id: v1(), message: action.newPost, likeCount: '0'}
+            return {...state, posts: [post, ...state.posts]}
         case "SET-PROFILE-INFO":
             return {...state, profileInfo: action.payload.profileInfo}
         case "SET-IS-FETCHING":
@@ -83,16 +80,11 @@ export const profileReducer = (state: InitialStateProfilePageStateType = initial
 }
 
 type MaineAT = ReturnType<typeof addPostActionCreator>
-    | ReturnType<typeof updateProfileMessageActionCreator>
     | ReturnType<typeof setProfileInfo>
     | ReturnType<typeof setIsFetching>
     | ReturnType<typeof setStatus>
 
-export const addPostActionCreator = () => ({type: "ADD-POST"} as const)
-export const updateProfileMessageActionCreator = (text: string) => ({
-    type: "UPDATE-PROFILE-MESSAGE",
-    newMessage: text
-} as const)
+export const addPostActionCreator = (newPost: string) => ({type: "ADD-POST", newPost} as const)
 
 export const setProfileInfo = (profileInfo: ProfileInfoType) => ({
     type: "SET-PROFILE-INFO",
