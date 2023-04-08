@@ -1,0 +1,26 @@
+.textarea {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.spanError {
+    font-size: 12px;
+    color: red;
+    position: absolute;
+    bottom: -15px;
+}
+
+.errorTextarea textarea input {
+    border: 1px solid red;
+}
+
+.errorTextarea input {
+    border: 1px solid red;
+}
+
+.errorTextarea textarea, input:focus {
+    border: 2px solid red;
+}
