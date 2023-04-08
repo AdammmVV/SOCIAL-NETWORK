@@ -1,54 +1,47 @@
-import {addPostActionCreator} from "./profile-reducer";
-import {addMessageActionCreator} from "./dialog-reducer";
-
-export type ActionType =
-    ReturnType<typeof addMessageActionCreator>
-    | ReturnType<typeof addPostActionCreator>
-
-type NavType = {
+export type NavType = {
     id: string
     name: string
     avatar: string
     online: boolean
 }
-type MessagesType = {
-    id: string
-    message: string
-}
-type DialogsType = {
-    id: string
-    name: string
-    src: string
-}
-type PostsType = {
-    id: string
-    message: string
-    likeCount: string
-}
-type NavBarType = {
-    nav: NavType[]
-}
-type ProfilePageType = {
-    posts: PostsType[]
-    profileMessage: string
-}
-type DialogsPageType = {
-    dialogs: DialogsType[]
-    messages: MessagesType[]
-    dialogMessage: string
-}
-type StateType = {
-    profilePage: ProfilePageType
-    dialogsPage: DialogsPageType
-    navBar: NavBarType
-}
-type StoreType = {
-    _state: StateType
-    _callSubscriber: (state: StateType) => void
-    getState: () => StateType
-    subscribe: (observe: (state: StateType) => void) => void
-    dispatch: (action: ActionType) => void
-}
+// type MessagesType = {
+//     id: string
+//     message: string
+// }
+// type DialogsType = {
+//     id: string
+//     name: string
+//     src: string
+// }
+// type PostsType = {
+//     id: string
+//     message: string
+//     likeCount: string
+// }
+// type NavBarType = {
+//     nav: NavType[]
+// }
+// type ProfilePageType = {
+//     posts: PostsType[]
+//     profileMessage: string
+// }
+// type DialogsPageType = {
+//     dialogs: DialogsType[]
+//     messages: MessagesType[]
+//     dialogMessage: string
+// }
+// type StateType = {
+//     profilePage: ProfilePageType
+//     dialogsPage: DialogsPageType
+//     navBar: NavBarType
+// }
+// type StoreType = {
+//     _state: StateType
+//     _callSubscriber: (state: StateType) => void
+//     getState: () => StateType
+//     subscribe: (observe: (state: StateType) => void) => void
+//     dispatch: (action: ActionType) => void
+// }
 
 // export const store: StoreType = {
 //     _state: {
