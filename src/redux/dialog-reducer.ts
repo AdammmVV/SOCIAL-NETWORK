@@ -1,5 +1,4 @@
 import {v1} from "uuid";
-import {ActionType} from "./store";
 
 export type MessagesType = {
     id: string
@@ -44,7 +43,10 @@ let initialState = {
 
 export type InitialStateDialogsPageType = typeof initialState
 
-export const dialogReducer = (state: InitialStateDialogsPageType = initialState, action: ActionType) => {
+export type MainActionForDialog =
+    ReturnType<typeof addMessageActionCreator>
+
+export const dialogReducer = (state: InitialStateDialogsPageType = initialState, action: MainActionForDialog) => {
     switch (action.type) {
         case "ADD-MESSAGE":
             const message = {id: v1(), message: action.newMessage}
