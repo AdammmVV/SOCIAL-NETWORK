@@ -21,11 +21,12 @@ type MapStateToPropsType = {
     profileInfo: ProfileInfoType
     isFetching: boolean
     profileStatus: string
+    userId: number | null
 }
 
 export class ProfileAPIContainer extends React.Component<RouteComponentProps<RoutParams> & ProfileAPIContainerPropsType> {
     componentDidMount() {
-        let userId = this.props.match.params.userId || '28108'
+        let userId = this.props.match.params.userId || this.props.userId + ''
         this.props.getUser(userId)
         this.props.getStatus(userId)
     }
@@ -46,7 +47,8 @@ const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
     return {
         profileInfo: state.profilePage.profileInfo,
         isFetching: state.profilePage.isFetching,
-        profileStatus: state.profilePage.profileStatus
+        profileStatus: state.profilePage.profileStatus,
+        userId: state.auth.id
     }
 }
 
