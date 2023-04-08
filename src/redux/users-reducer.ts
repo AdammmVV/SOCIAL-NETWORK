@@ -33,7 +33,7 @@ export const initialState: InitialStateUsersType = {
     error: null,
 }
 
-export const usersReducer = (state: InitialStateUsersType = initialState, action: MainAT) => {
+export const usersReducer = (state: InitialStateUsersType = initialState, action: MainATForUsers) => {
     switch (action.type) {
         case 'FOLLOW':
             return {...state, items: state.items.map(i => i.id === action.payload.userId ? {...i, followed: true} : i)}
@@ -55,7 +55,7 @@ export const usersReducer = (state: InitialStateUsersType = initialState, action
     }
 }
 
-type MainAT = FollowAT
+export type MainATForUsers = FollowAT
     | UnfollowAT
     | SetUsersAT
     | SetNumberPageAT
