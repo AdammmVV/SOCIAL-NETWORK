@@ -1,4 +1,3 @@
-import {ActionType} from "./store";
 import {v1} from "uuid";
 import logoMan from "../img/logo-man.jpg";
 import logoWoman from "../img/logoWoman.jpg";
@@ -55,6 +54,6 @@ let initialState = {
 }
 
 
-export const navBarReducer = (state: InitialStateNavType = initialState, action: ActionType) => {
+export const navBarReducer = (state: InitialStateNavType = initialState, action: any) => {
     return state
 }
