@@ -39,6 +39,10 @@ export const authAPI = {
             password: dataLogin.password,
             rememberMe: dataLogin.rememberMe
         }).then(data => data.data)
+    },
+    logOut() {
+        return instance.delete('auth/login')
+            .then((res) => res.data)
     }
 }
 
