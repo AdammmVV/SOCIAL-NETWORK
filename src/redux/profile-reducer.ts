@@ -63,7 +63,7 @@ let initialState = {
 
 export type InitialStateProfilePageStateType = typeof initialState
 
-export const profileReducer = (state: InitialStateProfilePageStateType = initialState, action: MaineAT) => {
+export const profileReducer = (state: InitialStateProfilePageStateType = initialState, action: MaineActionForProfile) => {
     switch (action.type) {
         case "ADD-POST":
             let post = {id: v1(), message: action.newPost, likeCount: '0'}
@@ -79,7 +79,7 @@ export const profileReducer = (state: InitialStateProfilePageStateType = initial
     }
 }
 
-type MaineAT = ReturnType<typeof addPostActionCreator>
+export type MaineActionForProfile = ReturnType<typeof addPostActionCreator>
     | ReturnType<typeof setProfileInfo>
     | ReturnType<typeof setIsFetching>
     | ReturnType<typeof setStatus>
