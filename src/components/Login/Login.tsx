@@ -3,12 +3,13 @@ import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {connect} from "react-redux";
 import {AppStateType} from "../../redux/redux-store";
 import {signIn} from "../../redux/auth-reducer";
-import {authAPI} from "../../api/api";
 import {Input} from "../common/formsControls/FormsControls";
 import {required} from "../../utils/validators/validators";
+import {Redirect} from "react-router-dom";
 
 type LoginPropsType = {
     signIn: (dataLogin: FormDataType) => void
+    isAuth: boolean
 }
 
 export type FormDataType = {
@@ -17,10 +18,13 @@ export type FormDataType = {
     rememberMe: boolean
 }
 
-export const Login: React.FC<LoginPropsType> = ({signIn}) => {
+export const Login: React.FC<LoginPropsType> = ({signIn, isAuth}) => {
+
     const onSubmitHandler = (values: FormDataType) => {
-        authAPI.logIn(values).then(data => console.log(data))
-        console.log(values)
+        signIn(values)
+    }
+    if(isAuth) {
+        return <Redirect to={'/profile'}/>
     }
     return (
         <div>
@@ -50,11 +54,11 @@ export const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {
     )
 }
 
-const mapStateToProps = (state: AppStateType) => {
+const mapDispatchToProps = (state: AppStateType) => ({
+    isAuth: state.auth.isAuth
+})
 
-}
-
-const LoginWidthConnect = connect(mapStateToProps, {signIn})(Login)
+export const LoginWidthConnect = connect(mapDispatchToProps, {signIn})(Login)
 
 const LoginReduxForm = reduxForm<FormDataType>({
     form: 'login'
