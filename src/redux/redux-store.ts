@@ -6,6 +6,7 @@ import {MainATForUsers, usersReducer} from "./users-reducer";
 import {authReducer, MainActionForAuth} from "./auth-reducer";
 import {reducer as formReducer} from 'redux-form'
 import thunk, {ThunkAction} from "redux-thunk";
+import {appReducer, MainActionForApp} from "./app-reducer";
 
 let rootReducer = combineReducers({
     profilePage: profileReducer,
@@ -13,7 +14,8 @@ let rootReducer = combineReducers({
     navBar: navBarReducer,
     usersPage: usersReducer,
     auth: authReducer,
-    form: formReducer
+    form: formReducer,
+    app: appReducer
 })
 
 export type AppStateType = ReturnType<typeof rootReducer>
@@ -26,7 +28,8 @@ export type AppThunk<ReturnType = void> = ThunkAction<
     >
 
 export type AppRootActionType =
-    MainActionForAuth
+    | MainActionForApp
+    | MainActionForAuth
     | MaineActionForProfile
     | MainActionForDialog
     | MainATForUsers

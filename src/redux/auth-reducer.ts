@@ -42,7 +42,7 @@ export const setUserData = (id: number | null, login: string, email: string, isA
 }
 
 export const getMe = (): AppThunk => (dispatch) => {
-    authAPI.getMe().then(response => {
+    return authAPI.getMe().then(response => {
         if (response.resultCode === 0) {
             console.log(response.data.id)
             const {id, email, login} = response.data
