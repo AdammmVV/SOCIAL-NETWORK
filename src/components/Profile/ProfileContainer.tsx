@@ -6,23 +6,8 @@ import {getStatus, getUser, ProfileInfoType, updateStatus} from "../../redux/pro
 import {RouteComponentProps, withRouter} from "react-router-dom";
 import {withAuthRedirect} from "../../hoc/withAuthRedirect";
 import {compose} from "redux";
-
-type ProfileAPIContainerPropsType = MapStateToPropsType & {
-    getUser: (userId: string) => void
-    getStatus: (userId: string) => void
-    updateStatus: (newStatus: string) => void
-}
-
-type RoutParams = {
-    userId: string
-}
-
-type MapStateToPropsType = {
-    profileInfo: ProfileInfoType
-    isFetching: boolean
-    profileStatus: string
-    userId: number | null
-}
+import {getIsFetching, getProfileInfo, getProfileStatus} from "../../redux/profile-selector";
+import {getUserId} from "../../redux/users-selector";
 
 export class ProfileAPIContainer extends React.Component<RouteComponentProps<RoutParams> & ProfileAPIContainerPropsType> {
     componentDidMount() {
@@ -43,17 +28,31 @@ export class ProfileAPIContainer extends React.Component<RouteComponentProps<Rou
     }
 }
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    return {
-        profileInfo: state.profilePage.profileInfo,
-        isFetching: state.profilePage.isFetching,
-        profileStatus: state.profilePage.profileStatus,
-        userId: state.auth.id
-    }
-}
+const mapStateToProps = (state: AppStateType): MapStateToPropsType => ({
+        profileInfo: getProfileInfo(state),
+        isFetching: getIsFetching(state),
+        profileStatus: getProfileStatus(state),
+        userId: getUserId(state)
+    })
 
 export const ProfileContainer = compose<React.ComponentType>(
     withAuthRedirect,
     withRouter,
     connect(mapStateToProps, {getUser, getStatus, updateStatus})
 )(ProfileAPIContainer)
+
+//types
+type ProfileAPIContainerPropsType = MapStateToPropsType & {
+    getUser: (userId: string) => void
+    getStatus: (userId: string) => void
+    updateStatus: (newStatus: string) => void
+}
+type RoutParams = {
+    userId: string
+}
+type MapStateToPropsType = {
+    profileInfo: ProfileInfoType
+    isFetching: boolean
+    profileStatus: string
+    userId: number | null
+}

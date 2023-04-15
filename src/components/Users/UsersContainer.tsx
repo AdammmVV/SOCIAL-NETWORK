@@ -11,22 +11,9 @@ import {
 } from "../../redux/users-reducer";
 import {AppStateType} from "../../redux/redux-store";
 import {Users} from "./Users";
-
-type MapStateToPropsType = {
-    usersPage: InitialStateUsersType
-}
-
-type UsersPropsType = MapStateToPropsType & {
-    follow: (userId: number) => void,
-    unfollow: (userId: number) => void,
-    setUsers: (newUsers: InitialStateUsersType) => void,
-    setNumberPage: (numberPage: number) => void
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
-    getUsers: (countPage: number, numberPage: number) => void
-}
+import {getUsersPage} from "../../redux/users-selector";
 
 export class UsersAPIComponent extends React.Component<UsersPropsType> {
-
     componentDidMount() {
         this.props.getUsers(this.props.usersPage.countPage, this.props.usersPage.numberPage)
     }
@@ -45,11 +32,8 @@ export class UsersAPIComponent extends React.Component<UsersPropsType> {
     }
 }
 
-const mapStateToProps = (state: AppStateType): MapStateToPropsType => {
-    return {
-        usersPage: state.usersPage
-    }
-}
+const mapStateToProps = (state: AppStateType): MapStateToPropsType =>
+    ({usersPage: getUsersPage(state)})
 
 export const UsersContainer = connect(mapStateToProps, {
     follow,
@@ -59,3 +43,17 @@ export const UsersContainer = connect(mapStateToProps, {
     toggleFollowingProgress,
     getUsers
 })(UsersAPIComponent)
+
+//types
+type MapStateToPropsType = {
+    usersPage: InitialStateUsersType
+}
+
+type UsersPropsType = MapStateToPropsType & {
+    follow: (userId: number) => void,
+    unfollow: (userId: number) => void,
+    setUsers: (newUsers: InitialStateUsersType) => void,
+    setNumberPage: (numberPage: number) => void
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => void
+    getUsers: (countPage: number, numberPage: number) => void
+}
