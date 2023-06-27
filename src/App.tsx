@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {Route} from "react-router-dom";
+import {Redirect, Route, Switch} from "react-router-dom";
 import {Music} from "./components/Music/Music";
 import {News} from "./components/News/News";
 import {Setting} from "./components/Setting/Setting";
@@ -19,8 +19,9 @@ class App extends React.Component<AppPropsType> {
     componentWillMount() {
         this.props.initializedAT()
     }
+
     render() {
-        if(!this.props.initialized) {
+        if (!this.props.initialized) {
             return <Preloader/>
         }
         return (
@@ -28,13 +29,16 @@ class App extends React.Component<AppPropsType> {
                 <HeaderContainer/>
                 <NavBarContainer/>
                 <div className='app-wrapperContent'>
-                    <Route path={'/dialogs'} component={DialogsContainer}/>
-                    <Route path={'/profile/:userId?'} component={ProfileContainer}/>
-                    <Route path={'/news'} component={News}/>
-                    <Route path={'/music'} component={Music}/>
-                    <Route path={'/settings'} component={Setting}/>
-                    <Route path={'/users'} component={UsersContainer}/>
-                    <Route path={'/login'} component={LoginWidthConnect}/>
+                    <Switch>
+                        <Route path={'/dialogs'} component={DialogsContainer}/>
+                        <Route path={'/profile/:userId?'} component={ProfileContainer}/>
+                        <Route path={'/news'} component={News}/>
+                        <Route path={'/music'} component={Music}/>
+                        <Route path={'/settings'} component={Setting}/>
+                        <Route path={'/users'} component={UsersContainer}/>
+                        <Route path={'/login'} component={LoginWidthConnect}/>
+                        <Redirect to={'/dialogs'} />
+                    </Switch>
                 </div>
             </div>
         );
